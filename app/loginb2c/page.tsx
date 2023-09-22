@@ -15,7 +15,7 @@ export default function LoginPage() {
           <h1 className="text-6xl font-medium">Sign Up</h1>
         </div>
         <div className="h-full p-10 pt-20 bg-stone-900 rounded-tl-5xl">
-          <form action="" method="post" className="flex flex-col gap-3">
+          <form action="" method="get" className="flex flex-col gap-3">
             <Input type="text" label="Name" />
             <div className="flex flex-row gap-2">
               <Input type="date" label="Date of Birth" placeholder="" />
@@ -34,7 +34,9 @@ export default function LoginPage() {
             <p className="text-small text-default-500">
               Selected: {isSelected ? "true" : "false"}
             </p>
-            <Button color="success">Submit</Button>
+            <Button type="submit" color="success">
+              Submit
+            </Button>
           </form>
         </div>
       </div>
