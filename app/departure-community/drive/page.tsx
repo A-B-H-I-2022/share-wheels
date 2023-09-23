@@ -3,6 +3,7 @@ import React from "react";
 import { Input } from "@nextui-org/input";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import Image from "next/image";
+import { Button } from "@nextui-org/button";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const { createClient } = require("@supabase/supabase-js");
@@ -18,9 +19,18 @@ interface Home {
   address: string;
   description: string;
 }
+interface OfficePlace {
+  id: number;
+  created_at: Date | null;
+  name: string | null;
+  image: string | null;
+  address: string | null;
+}
 export default function DC() {
   const [Community, setCommunity] = React.useState("InfoPark");
   const [Home, setHome] = React.useState("Skyline");
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const [tryoffice, setTryoffice] = React.useState<OfficePlace[]>([]);
   const people: Office[] = [
     {
       name: "InfoPark",
@@ -46,20 +56,48 @@ export default function DC() {
       description: "",
     },
   ];
+  React.useEffect(() => {
+    async function fetchB2CData() {
+      let { data, error } = await supabase.from("b2c").select("*");
+      if (error) {
+        console.log("error", error);
+      } else {
+        console.log("b2c", data);
+      }
+    }
+    async function fetchPlaceData() {
+      const { data, error } = await supabase.from("officeplace").select("*");
+      if (error) {
+        console.log("error", error);
+      } else {
+        console.log("place", data);
+      }
+      setTryoffice(data);
+    }
+
+    fetchB2CData();
+    fetchPlaceData();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-4 p-4 pt-10 bg-indigo-50">
-        <Input
-          type="text"
-          label="Accomodation Community"
-          placeholder="Enter the name of your apartment complex"
-        />
+        <form action="" className="flex flex-row">
+          <Input
+            type="text"
+            label="Accomodation Community"
+            placeholder="Enter the name of your apartment complex"
+          />
+          <Button color="success" className="h-full">
+            Submit
+          </Button>
+        </form>
         <Input
           type="text"
           label="Office Community"
           placeholder="Enter the name of your Office commute"
         />
-        {people
+        {tryoffice
           .filter((person) => person.name === Community)
           .map((person, index) => (
             <Card className="py-4" key={index}>
@@ -73,7 +111,7 @@ export default function DC() {
                 <Image
                   alt="Card background"
                   className="object-cover rounded-xl"
-                  src={person.image}
+                  src={person.image ?? ""}
                   width={500}
                   height={500}
                 />
