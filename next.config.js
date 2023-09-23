@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  plugins: [require("@supabase/auth-helpers-nextjs")],
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "upload.wikimedia.org",
         port: "",
-        pathname: "/wikipedia/**",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "en.wikipedia.org",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
