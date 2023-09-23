@@ -11,6 +11,15 @@ export default function LoginPage() {
         <form action="" method="post" className="flex flex-col gap-3">
           <Input type="text" label="Name" />
           <Input type="email" label="Email" placeholder="Enter your email" />
+          <Input type="text" label="Office name" placeholder="Eg: IBM" />
+          <Input
+            type="text"
+            label="Office location"
+            placeholder="Eg: InfoPark"
+          />
+          <Input type="text" label="City" placeholder="Eg: Ernakulam" />
+          <Input type="text" label="State" placeholder="Eg: Kerala" />
+          <Input type="number" label="Parking slot no" placeholder="Eg: 10" />
           <Input
             type="password"
             label="Password"
