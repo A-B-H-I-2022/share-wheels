@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  plugins: [require("@supabase/auth-helpers-nextjs")],
   images: {
     remotePatterns: [
       {

@@ -3,6 +3,9 @@ import React from "react";
 import { Input } from "@nextui-org/input";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import Image from "next/image";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const { createClient } = require("@supabase/supabase-js");
 interface Office {
   name: string;
   image: string;
@@ -17,6 +20,7 @@ interface Home {
 }
 export default function DC() {
   const [Community, setCommunity] = React.useState("InfoPark");
+  const [Home, setHome] = React.useState("Skyline");
   const people: Office[] = [
     {
       name: "InfoPark",
