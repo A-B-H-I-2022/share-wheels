@@ -75,7 +75,36 @@ export default function DC() {
 
   //   // fetchB2CData();
   // }, []);
+  async function updateRouteData(id: number, Home: string, Community: string) {
+    const { data: homeData, error: homeError } = await supabase
+      .from("Home")
+      .select("id")
+      .eq("name", Home);
+    if (homeError) {
+      console.log("error", homeError);
+    }
+    const Homeid = homeData[0].id;
 
+    const { data: communityData, error: communityError } = await supabase
+      .from("officeplace")
+      .select("id")
+      .eq("name", Community);
+    if (communityError) {
+      console.log("error", communityError);
+    }
+    const Communityid = communityData[0].id;
+
+    console.log(Communityid, Homeid);
+
+    const { data, error } = await supabase
+      .from("b2c")
+      .update({ home_id: Homeid, Office_place_id: Communityid })
+      .eq("id", 1)
+      .select();
+    if (error) {
+      console.log("error", error);
+    }
+  }
   React.useEffect(() => {
     async function fetchHomeData(home: string) {
       let { data, error } = await supabase
@@ -205,7 +234,9 @@ export default function DC() {
                         key={index}
                         className="light"
                         isPressable
-                        onPress={() => console.log("item pressed")}
+                        onPress={() => {
+                          updateRouteData(index, home, Community);
+                        }}
                       >
                         <CardBody className="p-0 overflow-visible">
                           <Image
