@@ -7,6 +7,9 @@ import { Button } from "@nextui-org/button";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const { createClient } = require("@supabase/supabase-js");
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
+
 import {
   Modal,
   ModalContent,
@@ -50,9 +53,19 @@ export default function DC() {
   const [check, setCheck] = React.useState(true);
   const [tryhome, setTryhome] = React.useState<Home[]>([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router: Router = useRouter();
+
   const List = [
-    { image: "/images/rider .png", title: "Ride", route: "/ride" },
-    { image: "/images/steering.png", title: "Drive", route: "/drive" },
+    {
+      image: "/images/rider .png",
+      title: "Ride",
+      route: "departure-community/ride",
+    },
+    {
+      image: "/images/steering.png",
+      title: "Drive",
+      route: "departure-community/drive",
+    },
   ];
   // React.useEffect(() => {
   //   // async function fetchB2CData() {
@@ -236,6 +249,7 @@ export default function DC() {
                         isPressable
                         onPress={() => {
                           updateRouteData(index, home, Community);
+                          router.push(item.route);
                         }}
                       >
                         <CardBody className="p-0 overflow-visible">
