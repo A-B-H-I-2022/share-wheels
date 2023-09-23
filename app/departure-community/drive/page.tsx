@@ -21,6 +21,7 @@ interface Home {
 export default function DC() {
   const [Community, setCommunity] = React.useState("InfoPark");
   const [Home, setHome] = React.useState("Skyline");
+  const supabase = createClient(supabaseUrl, supabaseKey);
   const people: Office[] = [
     {
       name: "InfoPark",
@@ -46,6 +47,28 @@ export default function DC() {
       description: "",
     },
   ];
+  React.useEffect(() => {
+    async function fetchB2CData() {
+      let { data, error } = await supabase.from("b2c").select("*");
+      if (error) {
+        console.log("error", error);
+      } else {
+        console.log("b2c", data);
+      }
+    }
+    async function fetchPlaceData() {
+      const { data, error } = await supabase.from("Home").select("*");
+      if (error) {
+        console.log("error", error);
+      } else {
+        console.log("place", data);
+      }
+    }
+
+    fetchB2CData();
+    fetchPlaceData();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-4 p-4 pt-10 bg-indigo-50">
