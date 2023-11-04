@@ -53,11 +53,11 @@ export default function DC() {
   const [check, setCheck] = React.useState(true);
   const [tryhome, setTryhome] = React.useState<Home[]>([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const router: Router = useRouter();
+  const router = useRouter();
 
   const List = [
     {
-      image: "/images/rider .png",
+      image: "/images/riderboy.png",
       title: "Ride",
       route: "departure-community/ride",
     },
