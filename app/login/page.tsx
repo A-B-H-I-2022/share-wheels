@@ -1,9 +1,18 @@
 "use client";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { Router } from "next/router";
+
 export default function LoginPage() {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [officeName, setOfficeName] = React.useState("");
+  const [officeLocation, setOfficeLocation] = React.useState("");
+  const router = useRouter();
   return (
-    <div className="bg-indigo-100 light">
+    <div className="bg-indigo-100 ">
       <div className="flex justify-center h-40 align-middle">
         <h1 className="text-6xl font-medium text-black">Sign Up</h1>
       </div>
@@ -25,7 +34,14 @@ export default function LoginPage() {
             label="Password"
             placeholder="Enter your password"
           />
-          <Button color="success">Submit</Button>
+          <Button
+            color="success"
+            onClick={() => {
+              router.push("/departure-community");
+            }}
+          >
+            Submit
+          </Button>
         </form>
       </div>
     </div>
